@@ -27,7 +27,6 @@ function Signin() {
           createdAt: firebase.database.ServerValue.TIMESTAMP,
         });
       }
-      console.log(user, additionalUserInfo);
       Alert.success('Signed in', 4000);
     } catch (error) {
       Alert.error(error.message, 3000);

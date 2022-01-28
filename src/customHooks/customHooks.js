@@ -1,3 +1,4 @@
+/* eslint-disable */
 //import { off, onValue, ref } from 'firebase/database';
 import { useState, useCallback, useEffect, useRef } from 'react';
 //import { database } from '../firebase';
