@@ -1,11 +1,23 @@
 /* eslint-disable */
 import React from 'react';
 import { Navigate } from 'react-router';
-import { Container, Row, Col, Grid, Panel, Button, Icon, Alert } from 'rsuite';
+import {
+  Container,
+  Row,
+  Col,
+  Grid,
+  Panel,
+  Button,
+  Icon,
+  Alert,
+  Loader,
+} from 'rsuite';
 import { auth, database } from '../firebase';
 import firebase from 'firebase/app';
+import { useProfile } from '../context/ProfileContext';
 
 function Signin() {
+  const { profile, isLoading } = useProfile();
   const signInWithProvider = async provider => {
     try {
       const { user, additionalUserInfo } = await auth.signInWithPopup(provider);
@@ -28,8 +40,19 @@ function Signin() {
   const onFacebookSignIn = () => {
     signInWithProvider(new firebase.auth.FacebookAuthProvider());
   };
-  const user = false;
-  if (user) <Navigate to="/" />;
+  if (isLoading && !profile) {
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+      }}
+    >
+      <Loader vertical speed="slow" size="md" content="Loading" />
+    </div>;
+  }
+  if (profile && !isLoading) return <Navigate to="/" />;
   return (
     <Container>
       <Grid className="mt-page">
